@@ -4,6 +4,7 @@ import 'rxjs/observable/of';
 
 
 
+
 @Component({
   moduleId: module.id,
   selector: 'app-hello',
@@ -15,9 +16,15 @@ export class HelloComponent implements OnInit {
   constructor() {}
 
   ngOnInit() {
-    Observable.of('hello world').subscribe((str:string) =>{
-      console.log(str);
+    let result = Observable.create((subscriber) => {
+      subscriber.next(Math.random());
+      subscriber.next(Math.random());
+      subscriber.next(Math.random());
+      subscriber.complete();
     });
+    result.subscribe(x => {
+      console.log(x);
+    })
   }
 
 }
